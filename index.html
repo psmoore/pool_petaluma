@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<!--
+  UNOFFICIAL PREVIEW. Not a City of Petaluma website.
+  A replica of https://cityofpetaluma.org/swim-center-updates/ with the typed schedule,
+  its footnotes and the schedule poster replaced by a live Pool Relay calendar.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Swim Center Updates &amp; Schedule &mdash; Petaluma (Pool Relay preview)</title>
+<meta name="description" content="Unofficial preview of the City of Petaluma swim center schedule page with a live Pool Relay calendar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:   #51797b;   /* the city's heading / bar colour */
+    --teal-d: #3e5f61;
+    --red:    #c8102e;   /* the star */
+    --ink:    #3a3a3a;
+    --muted:  #6b6b6b;
+    --rule:   #e1e4e4;
+    --wash:   #f3f6f6;
+    --font: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  *,*::before,*::after{ box-sizing:border-box }
+  html{ -webkit-text-size-adjust:100% }
+  body{ margin:0; background:#fff; color:var(--ink); font-family:var(--font); font-size:16px; line-height:1.7 }
+  img{ max-width:100%; display:block }
+  a{ color:var(--teal) }
+
+  .preview-note{
+    background:#2b2b2b;color:#fff;font-size:14px;line-height:1.5;padding:9px 18px;text-align:center;
+  }
+  .preview-note b{ color:#8fc4c6; font-weight:700 }
+  .preview-note a{ color:#fff }
+
+  .officialbar{
+    background:var(--teal); color:#fff; padding:9px 22px; display:flex; align-items:center; gap:12px;
+    font-size:13px; letter-spacing:.04em;
+  }
+  .officialbar .seal{
+    width:26px;height:26px;border-radius:50%;border:2px solid #fff;flex:none;
+    display:grid;place-items:center;font-size:8px;font-weight:700;
+  }
+  .officialbar b{ text-transform:uppercase; letter-spacing:.08em; text-decoration:underline }
+  .officialbar .right{ margin-left:auto; display:flex; gap:20px; flex-wrap:wrap }
+
+  header.site{ padding:16px 22px 14px; text-align:center; border-bottom:1px solid var(--rule) }
+  .wordmark{ display:inline-block; text-decoration:none }
+  .wordmark .star{ color:var(--red); font-size:15px; line-height:1 }
+  .wordmark .name{
+    font-weight:700; font-size:clamp(22px,3.6vw,31px); letter-spacing:.14em; color:var(--ink);
+  }
+  .wordmark .sub{ font-size:9px; letter-spacing:.18em; color:var(--muted); text-transform:uppercase }
+  nav.site{ display:flex; justify-content:center; gap:38px; flex-wrap:wrap; margin-top:10px }
+  nav.site a{
+    color:var(--ink); text-decoration:none; font-size:13px; font-weight:600;
+    letter-spacing:.1em; text-transform:uppercase;
+  }
+
+  .alertbar{
+    background:#dceaf2; color:var(--ink); text-align:center; padding:14px 22px;
+    font-weight:600; font-size:13.5px; letter-spacing:.02em; text-transform:uppercase;
+  }
+  .crumbs{ max-width:1180px; margin:0 auto; padding:18px 22px 0; font-size:13px }
+  .crumbs a{ text-decoration:underline }
+
+  h1.page{
+    text-align:center; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
+    font-size:clamp(22px,3.4vw,30px); margin:26px 0 22px; color:var(--ink);
+  }
+
+  .cols{ max-width:1180px; margin:0 auto; padding:0 22px; display:grid;
+         grid-template-columns:1fr 1fr; gap:44px; align-items:start }
+  @media (max-width:900px){ .cols{ grid-template-columns:1fr; gap:26px } }
+  .sched h2{ color:var(--teal); font-size:19px; font-weight:700; letter-spacing:.06em;
+             text-transform:uppercase; margin:0 0 12px }
+  .sched .closure{ font-weight:700; text-transform:uppercase; font-size:14px; margin:0 0 10px }
+  .sched .day{ font-weight:700; margin:14px 0 2px; font-size:14px }
+  .sched .t{ font-size:14px; margin:0; color:var(--muted) }
+  .sched .struck{ text-decoration:line-through; opacity:.62 }
+  .sched .foot{ font-size:12.5px; color:var(--muted); margin-top:10px }
+
+  .poster figcaption{ font-size:12.5px; color:var(--muted); margin-top:8px }
+  .poster img{ border:1px solid var(--rule); border-radius:3px }
+  .poster .fname{ font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px; color:var(--ink) }
+
+  .why{
+    max-width:1180px; margin:26px auto 0; padding:18px 22px; background:var(--wash);
+    border-left:4px solid var(--teal); font-size:14.5px; color:var(--muted);
+  }
+  .why b{ color:var(--ink) }
+
+  .cal-band{ background:var(--wash); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);
+             margin:26px 0 0; padding:26px 22px 30px }
+  .cal-inner{ max-width:1360px; margin:0 auto }
+  .cal-head{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:12px }
+  .cal-head h2{ margin:0; font-size:22px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--ink) }
+  .cal-head .live{
+    font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+    color:#fff; background:var(--teal); padding:4px 11px; border-radius:3px;
+  }
+  .frame{ border:1px solid var(--rule); border-radius:3px; overflow:hidden; background:#fff;
+          box-shadow:0 10px 28px rgba(81,121,123,.13) }
+  .frame iframe{ display:block; width:100%; height:800px; border:0 }
+  @media (max-width:760px){ .frame iframe{ height:620px } }
+  .cal-foot{ font-size:14px; color:var(--muted); margin-top:10px }
+
+  .replaces{ max-width:1180px; margin:28px auto 0; padding:0 22px }
+  .replaces h2{ font-size:20px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; margin:0 0 10px }
+  .replaces ul{ margin:0; padding-left:20px; color:var(--muted); font-size:15px }
+  .replaces li{ margin-bottom:10px }
+
+  footer.site{ margin-top:40px; background:var(--teal-d); color:#fff; padding:28px 22px; font-size:14px }
+  footer.site .in{ max-width:1180px; margin:0 auto }
+  footer.site a{ color:#fff }
+  footer.site .fine{
+    max-width:1180px; margin:18px auto 0; padding-top:14px;
+    border-top:1px solid rgba(255,255,255,.25); font-size:12.5px; color:#c5dcdd;
+  }
+  @media (max-width:760px){ body{ font-size:15px } nav.site{ gap:16px } .officialbar .right{ display:none } }
+</style>
+</head>
+<body>
+
+<div class="preview-note">
+  <b>Unofficial preview.</b> Not a City of Petaluma page &mdash; a mock-up of
+  <a href="https://cityofpetaluma.org/swim-center-updates/">cityofpetaluma.org/swim-center-updates</a>
+  showing the typed schedule and its poster replaced by a live calendar.
+</div>
+
+<div class="officialbar">
+  <span class="seal" aria-hidden="true">CA</span>
+  <b>Official City Website</b>
+  <span class="right"><span>Meetings</span><span>Jobs</span><span>Subscribe</span><span>Translate</span><span>Search</span></span>
+</div>
+
+<header class="site">
+  <a class="wordmark" href="https://cityofpetaluma.org">
+    <div class="star" aria-hidden="true">&#9733;</div>
+    <div class="name">PETALUMA</div>
+    <div class="sub">Sonoma County &middot; California</div>
+  </a>
+  <nav class="site">
+    <a href="https://cityofpetaluma.org/about/">About</a>
+    <a href="https://cityofpetaluma.org/services/">Services</a>
+    <a href="https://cityofpetaluma.org/resources/">Resources</a>
+    <a href="https://cityofpetaluma.org/government/">Government</a>
+  </nav>
+</header>
+
+<div class="alertbar">The Petaluma Shelter will be closed from Sept. 1&ndash;14, 2026 as we transition to a new animal services provider.</div>
+
+<p class="crumbs"><a href="https://cityofpetaluma.org/departments/parks-and-recreation/">Parks &amp; Recreation</a> /
+  <a href="https://cityofpetaluma.org/aquatics/">Aquatics</a> / Swim Center Updates &amp; Schedule</p>
+
+<h1 class="page">Swim Center Updates &amp; Schedule</h1>
+
+<div class="cols">
+  <div class="sched">
+    <h2>Lap Swim</h2>
+    <p class="closure struck">Pool closed Monday, September 7th in observance of Labor Day.</p>
+    <p class="closure struck">Pool closed Saturday, September 12th from 9&ndash;11am for a private swim team event.</p>
+
+    <p class="day">Monday &ndash; Thursday:</p>
+    <p class="t struck">5:30am - 7:45am &middot; 11:30am - 2:30pm &middot; 4:15pm - 7pm</p>
+    <p class="day">Friday:</p>
+    <p class="t struck">5:30am - 7:45am &middot; 11:30am - 2:30pm &middot;
+      **4:15pm - 7pm (Long Course, beginning 9/4, NO LCM 9/11 &amp; 9/18)</p>
+    <p class="day">Saturday:</p>
+    <p class="t struck">**6:30am - 10am (Long Course, beginning 9/5, NO LCM 9/12 &amp; 9/19) &middot;
+      10am - 12pm &middot; *12pm - 4pm (closing at 1pm beginning 9/12. closing at 12pm beginning 10/10)</p>
+    <p class="day">Sunday:</p>
+    <p class="t struck">12pm - 4pm (through 9/6 only, closed on Sundays as of 9/13)</p>
+    <p class="foot struck">*Runs August 15th &ndash; September 6th ONLY &nbsp;
+      **Long Course Hours (will resume September 4th)</p>
+  </div>
+
+  <figure class="poster">
+    <img src="https://storage.googleapis.com/proudcity/petalumaca/2026/08/psc-schedule-new-8.25.26-1ada6109.png"
+         alt="The Petaluma Swim Center fall hours poster as published on the city website">
+    <figcaption>The same schedule again, as a picture. Its filename is
+      <span class="fname">psc-schedule-new-8.25.26.png</span> &mdash; the day it was last redrawn.
+      Every change means editing the text on the left <em>and</em> re-making this, and the two
+      can disagree in between.</figcaption>
+  </figure>
+</div>
+
+<p class="why">Everything on the left is struck through because the calendar below already carries it.
+  <b>The footnotes are the point:</b> &ldquo;beginning 9/4&rdquo;, &ldquo;NO LCM 9/11 &amp; 9/18&rdquo;,
+  &ldquo;closing at 1pm beginning 9/12&rdquo;, &ldquo;through 9/6 only&rdquo; &mdash; each one is a date
+  on which the schedule stops being what the paragraph above it says. A calendar has dates in it
+  already, so those are simply what the week shows.</p>
+
+<section class="cal-band">
+  <div class="cal-inner">
+    <div class="cal-head">
+      <h2>This week at the Swim Center</h2>
+      <span class="live">Live</span>
+    </div>
+    <div class="frame">
+      <iframe src="https://www.poolrelay.com/embed/wYsFZYXYvYNpNxXSPbMecE"
+              title="Petaluma Swim Center schedule"></iframe>
+    </div>
+    <p class="cal-foot">Tap <strong>Lap Swim</strong>, <strong>Swim Team</strong> or
+      <strong>Synchro</strong> in the filter to see just that. The arrows move between weeks, and
+      each block says how many lanes it holds. On a phone the same schedule opens as a list.</p>
+  </div>
+</section>
+
+<div class="replaces">
+  <h2>What this replaces</h2>
+  <ul>
+    <li><strong>A schedule published twice.</strong> The typed hours and the poster say the same
+      thing in two places that have to be edited together.</li>
+    <li><strong>Seven footnotes that are really dates.</strong> Long Course begins 9/4, except not
+      on 9/11 and 9/18; Saturday closes at 1pm from 9/12 and at 12pm from 10/10; Sundays end on
+      9/13. In the calendar those are just the weeks in which the blocks differ &mdash; look at
+      Friday and Saturday of this week.</li>
+    <li><strong>Both closures are in it.</strong> Labor Day is an empty Monday; the private swim
+      team event on Saturday 9&ndash;11am is a booking like any other.</li>
+    <li><strong>&ldquo;A minimum of 6 lanes available&rdquo;</strong> stops being a promise in prose
+      &mdash; every block says how many lanes it holds, so a swimmer can count.</li>
+    <li>No &ldquo;sign up for our email updates to receive monthly lane availability updates&rdquo;
+      needed: the page is the update.</li>
+  </ul>
+</div>
+
+<footer class="site">
+  <div class="in">
+    <strong>Petaluma Swim Center</strong><br>
+    900 E Washington Blvd, Petaluma, CA 94954<br>
+    <a href="https://cityofpetaluma.org/aquatics/">Aquatics</a> &middot;
+    <a href="https://cityofpetaluma.org/swim-center-updates/">Swim Center Updates &amp; Schedule</a>
+  </div>
+  <p class="fine">This page is an unofficial preview built to demonstrate an embedded
+    <a href="https://www.poolrelay.com">Pool Relay</a> calendar. It is not operated by or
+    affiliated with the City of Petaluma. For official hours, closures and changes see
+    <a href="https://cityofpetaluma.org/swim-center-updates/">cityofpetaluma.org</a>.</p>
+</footer>
+
+</body>
+</html>
